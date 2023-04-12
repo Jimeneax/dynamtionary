@@ -5,24 +5,64 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dynamtionary</title>
+  <style>
+    span {
+      background-color: yellow;
+    }
+    .dctionary-word {
+      background-color: lightblue;
+    }
+  </style>
 </head>
 <body>
   <!-- 1. whatever text is typed into the text area should be added to the div:
   each separate token (split on spaces) should be added into the div as its 
   own span element. -->
-  <textarea cols="30" rows="10"></textarea>
-  <div></div>
+  <textarea id = "textbox" cols="30" rows="10"></textarea>
+  <div contenteditable = "true"></div>
 
   <!-- 2. add the html for a text input field -->
+  <input type="text" id = "dictionary-input">
 
   <!-- 3. whenever the enter/return key is pressed while the focus is on the
     input field, add the "word" in the text field to a list of known words
     (a "dictionary") -->
-  
-  <!-- 4. use css and some edits to your existing code from #1 to style all the
-    spans in some visibly discernible way (e.g. set a background color) -->
+  <script>
+    const dictionary = new Set();
+    const inputField = document.getElementById('dictionary-input');
+    inputField.addEventListener('keydown', function(event){
+      if (event.keyCode === 13){
+        const word = inputField.value.trim().toLowerCase();
+        if (word !== ''){
+          dictionary.add(word);
+          inputField.value = '';
+        }
+      }
+    });
+    </script>
 
-  <!-- 5. style the spans whose content is in the "dictionary" from #3 -->
+    //  <!-- 4. use css and some edits to your existing code from #1 to style all the
+    //          spans in some visibly discernible way (e.g. set a background color) -->
+    <script>
+    const textArea = document.getElementById('textbox');
+    const textDisplay = document.getElementById('text');
+
+    textArea.addEventListener('input', function(event) {
+      const text = textArea.value.trim();
+      textDisplay.innerHTML = '';
+      const words = text.split(' ');
+      words.forEach(function(word) {
+        const span = document.createElement('span');
+        span.innerText = word;
+
+        // <!-- 5. style the spans whose content is in the "dictionary" from #3 -->
+        if (dictionary.has(word.toLowerCase())) {
+          span.classList.add('dictionary-word');
+        }     
+        textDisplay.appendChild(span);
+      });
+    });
+  </script>
   <script src="dynamtionary.js"></script>
 </body>
 </html>
