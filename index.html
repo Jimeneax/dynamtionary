@@ -9,7 +9,7 @@
     span {
       background-color: yellow;
     }
-    .dctionary-word {
+    .dictionary-word {
       background-color: lightblue;
     }
   </style>
@@ -19,10 +19,10 @@
   each separate token (split on spaces) should be added into the div as its 
   own span element. -->
   <textarea id = "textbox" cols="30" rows="10"></textarea>
-  <div contenteditable = "true"></div>
+  <div contenteditable= "true"></div>
 
   <!-- 2. add the html for a text input field -->
-  <input type="text" id = "dictionary-input">
+  <input type="text" id="dictionary-input">
 
   <!-- 3. whenever the enter/return key is pressed while the focus is on the
     input field, add the "word" in the text field to a list of known words
@@ -30,26 +30,27 @@
   <script>
     const dictionary = new Set();
     const inputField = document.getElementById('dictionary-input');
-    inputField.addEventListener('keydown', function(event){
-      if (event.keyCode === 13){
+    inputField.addEventListener('text', function(event){
+      if (event.keyCode == 13){
         const word = inputField.value.trim().toLowerCase();
-        if (word !== ''){
+        if (word !== '') {
           dictionary.add(word);
-          inputField.value = '';
+          // inputField.value = '';
         }
       }
     });
-    </script>
+ 
 
     //  <!-- 4. use css and some edits to your existing code from #1 to style all the
     //          spans in some visibly discernible way (e.g. set a background color) -->
-    <script>
     const textArea = document.getElementById('textbox');
     const textDisplay = document.getElementById('text');
+    // textArea.className = "span";
+    // textDisplay.className = "dictionary-word";
 
     textArea.addEventListener('input', function(event) {
       const text = textArea.value.trim();
-      textDisplay.innerHTML = '';
+      textDisplay.innerHTML = "";
       const words = text.split(' ');
       words.forEach(function(word) {
         const span = document.createElement('span');
